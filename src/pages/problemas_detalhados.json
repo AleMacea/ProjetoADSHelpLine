@@ -1,0 +1,226 @@
+[
+    {
+        "numero": 1,
+        "categoria": "Hardware",
+        "problema": "Computador n\u00e3o liga",
+        "etapas": [
+            {
+                "pergunta": "Voc\u00ea verificou se o cabo de energia est\u00e1 conectado?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o cabo de energia e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea testou outra tomada?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, teste outra tomada e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum sinal de vida (luzes, sons)?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique se h\u00e1 algum sinal de vida e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea testou outro cabo de energia?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, teste outro cabo de energia e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se o bot\u00e3o de energia est\u00e1 funcionando?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique se o bot\u00e3o de energia est\u00e1 funcionando e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na fonte de alimenta\u00e7\u00e3o?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a fonte de alimenta\u00e7\u00e3o e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa-m\u00e3e?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a placa-m\u00e3e e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no processador?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o processador e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na mem\u00f3ria RAM?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a mem\u00f3ria RAM e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no disco r\u00edgido?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o disco r\u00edgido e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa de v\u00eddeo?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a placa de v\u00eddeo e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos perif\u00e9ricos (mouse, teclado, monitor)?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique os perif\u00e9ricos e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no sistema operacional?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o sistema operacional e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos drivers?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique os drivers e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no software?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o software e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na rede?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a rede e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na internet?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a internet e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no antiv\u00edrus?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o antiv\u00edrus e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na seguran\u00e7a?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a seguran\u00e7a e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no backup?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o backup e tente novamente."
+            },
+            {
+                "pergunta": "Se o problema persistir, por favor, abra um chamado.",
+                "resposta_sim": "Por favor, abra um chamado.",
+                "resposta_nao": "Por favor, abra um chamado."
+            }
+        ]
+    },
+     {
+        "numero": 2,
+        "categoria": "Rede",
+        "problema": "Computador n\u00e3o liga",
+        "etapas": [
+            {
+                "pergunta": "Voc\u00ea verificou se o cabo de energia est\u00e1 conectado?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o cabo de energia e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea testou outra tomada?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, teste outra tomada e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum sinal de vida (luzes, sons)?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique se h\u00e1 algum sinal de vida e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea testou outro cabo de energia?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, teste outro cabo de energia e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se o bot\u00e3o de energia est\u00e1 funcionando?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique se o bot\u00e3o de energia est\u00e1 funcionando e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na fonte de alimenta\u00e7\u00e3o?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a fonte de alimenta\u00e7\u00e3o e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa-m\u00e3e?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a placa-m\u00e3e e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no processador?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o processador e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na mem\u00f3ria RAM?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a mem\u00f3ria RAM e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no disco r\u00edgido?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o disco r\u00edgido e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa de v\u00eddeo?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a placa de v\u00eddeo e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos perif\u00e9ricos (mouse, teclado, monitor)?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique os perif\u00e9ricos e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no sistema operacional?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o sistema operacional e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos drivers?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique os drivers e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no software?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o software e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na rede?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a rede e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na internet?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a internet e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no antiv\u00edrus?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o antiv\u00edrus e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na seguran\u00e7a?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique a seguran\u00e7a e tente novamente."
+            },
+            {
+                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no backup?",
+                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
+                "resposta_nao": "Por favor, verifique o backup e tente novamente."
+            },
+            {
+                "pergunta": "Se o problema persistir, por favor, abra um chamado.",
+                "resposta_sim": "Por favor, abra um chamado.",
+                "resposta_nao": "Por favor, abra um chamado."
+            }
+        ]
+    }
+]
