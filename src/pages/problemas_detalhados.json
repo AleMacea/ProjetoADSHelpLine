@@ -1,226 +1,135 @@
 [
-    {
-        "numero": 1,
-        "categoria": "Hardware",
-        "problema": "Computador n\u00e3o liga",
-        "etapas": [
-            {
-                "pergunta": "Voc\u00ea verificou se o cabo de energia est\u00e1 conectado?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o cabo de energia e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea testou outra tomada?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, teste outra tomada e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum sinal de vida (luzes, sons)?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique se h\u00e1 algum sinal de vida e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea testou outro cabo de energia?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, teste outro cabo de energia e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se o bot\u00e3o de energia est\u00e1 funcionando?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique se o bot\u00e3o de energia est\u00e1 funcionando e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na fonte de alimenta\u00e7\u00e3o?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a fonte de alimenta\u00e7\u00e3o e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa-m\u00e3e?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a placa-m\u00e3e e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no processador?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o processador e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na mem\u00f3ria RAM?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a mem\u00f3ria RAM e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no disco r\u00edgido?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o disco r\u00edgido e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa de v\u00eddeo?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a placa de v\u00eddeo e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos perif\u00e9ricos (mouse, teclado, monitor)?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique os perif\u00e9ricos e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no sistema operacional?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o sistema operacional e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos drivers?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique os drivers e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no software?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o software e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na rede?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a rede e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na internet?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a internet e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no antiv\u00edrus?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o antiv\u00edrus e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na seguran\u00e7a?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a seguran\u00e7a e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no backup?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o backup e tente novamente."
-            },
-            {
-                "pergunta": "Se o problema persistir, por favor, abra um chamado.",
-                "resposta_sim": "Por favor, abra um chamado.",
-                "resposta_nao": "Por favor, abra um chamado."
-            }
-        ]
-    },
-     {
-        "numero": 2,
-        "categoria": "Rede",
-        "problema": "Computador n\u00e3o liga",
-        "etapas": [
-            {
-                "pergunta": "Voc\u00ea verificou se o cabo de energia est\u00e1 conectado?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o cabo de energia e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea testou outra tomada?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, teste outra tomada e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum sinal de vida (luzes, sons)?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique se h\u00e1 algum sinal de vida e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea testou outro cabo de energia?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, teste outro cabo de energia e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se o bot\u00e3o de energia est\u00e1 funcionando?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique se o bot\u00e3o de energia est\u00e1 funcionando e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na fonte de alimenta\u00e7\u00e3o?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a fonte de alimenta\u00e7\u00e3o e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa-m\u00e3e?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a placa-m\u00e3e e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no processador?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o processador e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na mem\u00f3ria RAM?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a mem\u00f3ria RAM e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no disco r\u00edgido?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o disco r\u00edgido e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na placa de v\u00eddeo?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a placa de v\u00eddeo e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos perif\u00e9ricos (mouse, teclado, monitor)?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique os perif\u00e9ricos e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no sistema operacional?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o sistema operacional e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema nos drivers?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique os drivers e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no software?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o software e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na rede?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a rede e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na internet?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a internet e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no antiv\u00edrus?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o antiv\u00edrus e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema na seguran\u00e7a?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique a seguran\u00e7a e tente novamente."
-            },
-            {
-                "pergunta": "Voc\u00ea verificou se h\u00e1 algum problema no backup?",
-                "resposta_sim": "\u00d3timo! Vamos para a pr\u00f3xima etapa.",
-                "resposta_nao": "Por favor, verifique o backup e tente novamente."
-            },
-            {
-                "pergunta": "Se o problema persistir, por favor, abra um chamado.",
-                "resposta_sim": "Por favor, abra um chamado.",
-                "resposta_nao": "Por favor, abra um chamado."
-            }
-        ]
+  {
+    "numero": 1,
+    "categoria": "Hardware",
+    "problema": "Computador não liga",
+    "etapas": [
+      {
+        "instrucoes": "Para verificar se o cabo de energia está conectado, siga estes passos:\n1) Certifique-se de que o cabo está firmemente encaixado tanto no computador quanto na tomada;\n2) Verifique se o cabo apresenta sinais de desgaste ou cortes;\n3) Tente conectar em outra tomada.",
+        "pergunta": "Após seguir os passos acima, o cabo de energia está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, verifique novamente ou substitua o cabo e tente novamente."
+      },
+      {
+        "instrucoes": "Para testar outra tomada, siga estes passos:\n1) Conecte o cabo de energia em uma tomada que esteja funcionando;\n2) Verifique se o dispositivo liga.",
+        "pergunta": "Após seguir os passos acima, o teste em outra tomada foi bem sucedido?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, verifique cuidadosamente ou teste em uma outra tomada."
+      },
+      {
+        "instrucoes": "Para verificar sinais de atividade, siga estes passos:\n1) Observe se há alguma luz indicadora no gabinete;\n2) Escute se há sons de inicialização ou funcionamento dos ventiladores;\n3) Verifique se há movimento nas ventoinhas.",
+        "pergunta": "Após seguir os passos acima, você percebe algum sinal de vida?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, revise as conexões e tente novamente."
+      },
+      {
+        "instrucoes": "Para testar outro cabo de energia, siga estes passos:\n1) Utilize um cabo conhecido por estar em funcionamento;\n2) Conecte-o ao equipamento e à tomada;\n3) Observe se o computador liga.",
+        "pergunta": "Após seguir os passos acima, o teste com outro cabo de energia foi bem sucedido?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Experimente novamente com um cabo confiável e tente novamente."
+      },
+      {
+        "instrucoes": "Para verificar se o botão de energia está funcionando, siga estes passos:\n1) Pressione o botão com firmeza e observe se há algum clique ou resposta visual (como uma luz);\n2) Certifique-se de que não há sujeira ou obstruções que possam interferir;\n3) Se possível, compare com o funcionamento do botão em outro equipamento similar.",
+        "pergunta": "Após seguir os passos acima, o botão de energia está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, limpe ou repare o botão e tente novamente."
+      },
+      {
+        "instrucoes": "Para verificar a fonte de alimentação, siga estes passos:\n1) Certifique-se de que a fonte está ligada e o interruptor (se houver) está na posição correta;\n2) Verifique se há odores de queimado ou ruídos incomuns;\n3) Se possível, teste utilizando outra fonte compatível.",
+        "pergunta": "Após seguir os passos acima, a fonte de alimentação está operando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, substitua ou repare a fonte de alimentação e tente novamente."
+      },
+      {
+        "instrucoes": "Para verificar a placa-mãe, siga estes passos:\n1) Confirme se todos os cabos e conectores estão firmemente conectados;\n2) Examine visualmente a placa para identificar sinais de danos ou capacitores estufados;\n3) Se necessário, peça uma avaliação técnica.",
+        "pergunta": "Após seguir os passos acima, a placa-mãe aparenta estar em boas condições?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, consulte um técnico especializado para uma avaliação detalhada."
+      },
+      {
+        "instrucoes": "Para verificar o processador, siga estes passos:\n1) Certifique-se de que o processador está corretamente encaixado no soquete;\n2) Verifique se o cooler está funcionando e se a aplicação de pasta térmica está adequada;\n3) Se possível, teste o processador em outro sistema ou substitua por outro compatível.",
+        "pergunta": "Após seguir os passos acima, o processador está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, revise a instalação ou consulte um técnico para assistência."
+      },
+      {
+        "instrucoes": "Para verificar a memória RAM, siga estes passos:\n1) Desligue o computador e remova os módulos de RAM;\n2) Reinsira cada módulo individualmente, testando-os em diferentes slots;\n3) Utilize uma ferramenta de diagnóstico para verificar a integridade da memória.",
+        "pergunta": "Após seguir os passos acima, a memória RAM está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, tente substituir ou reinstalar os módulos e teste novamente."
+      },
+      {
+        "instrucoes": "Para verificar o disco rígido, siga estes passos:\n1) Certifique-se de que os cabos de dados e energia estão conectados corretamente;\n2) Escute se há ruídos incomuns durante a inicialização;\n3) Utilize uma ferramenta de diagnóstico para verificar a saúde do disco.",
+        "pergunta": "Após seguir os passos acima, o disco rígido está operando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, tente substituir ou reparar o disco rígido conforme necessário."
+      },
+      {
+        "instrucoes": "Para verificar a placa de vídeo, siga estes passos:\n1) Verifique se a placa está bem encaixada no slot PCIe;\n2) Certifique-se de que os cabos do monitor estão conectados e em bom estado;\n3) Se possível, teste a placa em outro computador ou compare com outra placa.",
+        "pergunta": "Após seguir os passos acima, a placa de vídeo está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, tente reinstalar a placa ou consulte um técnico para avaliação."
+      },
+      {
+        "instrucoes": "Para verificar os periféricos, siga estes passos:\n1) Teste cada dispositivo em outra máquina ou porta;\n2) Certifique-se de que os cabos e conexões estão intactos;\n3) Confirme se os drivers estão atualizados.",
+        "pergunta": "Após seguir os passos acima, os periféricos estão funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, atualize ou substitua os periféricos conforme necessário."
+      },
+      {
+        "instrucoes": "Para verificar o sistema operacional, siga estes passos:\n1) Reinicie o computador e observe se aparecem mensagens de erro;\n2) Certifique-se de que todas as atualizações estão instaladas;\n3) Utilize ferramentas de verificação de integridade (por exemplo, SFC no Windows).",
+        "pergunta": "Após seguir os passos acima, o sistema operacional está funcionando normalmente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, tente restaurar ou reparar o sistema operacional."
+      },
+      {
+        "instrucoes": "Para verificar os drivers, siga estes passos:\n1) Abra o Gerenciador de Dispositivos e verifique conflitos ou alertas;\n2) Atualize os drivers diretamente do site dos fabricantes;\n3) Reinicie o sistema após as atualizações.",
+        "pergunta": "Após seguir os passos acima, os drivers estão operando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, atualize ou reinstale os drivers e tente novamente."
+      },
+      {
+        "instrucoes": "Para verificar o software, siga estes passos:\n1) Reinicie o programa ou o computador;\n2) Verifique se há atualizações disponíveis para o software;\n3) Caso o problema persista, considere reinstalar o software.",
+        "pergunta": "Após seguir os passos acima, o software está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, tente reinstalar o software ou busque suporte."
+      },
+      {
+        "instrucoes": "Para verificar a rede, siga estes passos:\n1) Certifique-se de que o cabo de rede está conectado ou que o Wi-Fi está ativo;\n2) Verifique o funcionamento do roteador ou switch;\n3) Teste a conexão com outro dispositivo.",
+        "pergunta": "Após seguir os passos acima, a rede está operando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, ajuste as configurações ou consulte o suporte de rede."
+      },
+      {
+        "instrucoes": "Para verificar a conexão com a internet, siga estes passos:\n1) Verifique se outros dispositivos conseguem acessar a internet;\n2) Reinicie o modem e o roteador;\n3) Consulte seu provedor para confirmar se há interrupções.",
+        "pergunta": "Após seguir os passos acima, a conexão com a internet foi restabelecida?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, entre em contato com seu provedor para suporte."
+      },
+      {
+        "instrucoes": "Para verificar o antivírus, siga estes passos:\n1) Certifique-se de que o antivírus está atualizado;\n2) Execute uma varredura completa no sistema;\n3) Verifique se o antivírus não está bloqueando funções essenciais.",
+        "pergunta": "Após seguir os passos acima, o antivírus está operando normalmente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, atualize ou reinstale o antivírus e tente novamente."
+      },
+      {
+        "instrucoes": "Para verificar a segurança do sistema, siga estes passos:\n1) Reveja as configurações do firewall e outras proteções;\n2) Confira se todas as atualizações de segurança estão instaladas;\n3) Verifique se não há softwares suspeitos instalados.",
+        "pergunta": "Após seguir os passos acima, as medidas de segurança estão funcionando adequadamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, ajuste as configurações ou consulte um especialista."
+      },
+      {
+        "instrucoes": "Para verificar o backup, siga estes passos:\n1) Certifique-se de que a rotina de backup está configurada corretamente;\n2) Verifique se os arquivos importantes estão sendo copiados;\n3) Realize um teste de restauração com um arquivo de exemplo.",
+        "pergunta": "Após seguir os passos acima, o backup está funcionando corretamente?",
+        "resposta_sim": "Ótimo! Vamos para a próxima etapa.",
+        "resposta_nao": "Por favor, ajuste a rotina de backup e tente novamente."
+      },
+      {
+        "instrucoes": "Caso todas as etapas anteriores não solucionem o problema, é recomendado buscar suporte técnico especializado.",
+        "pergunta": "Deseja abrir um chamado para suporte?",
+        "resposta_sim": "Por favor, abra um chamado.",
+        "resposta_nao": "Entendido. Caso precise de ajuda futuramente, não hesite em contatar o suporte."
+      }
+    ]
     }
 ]
