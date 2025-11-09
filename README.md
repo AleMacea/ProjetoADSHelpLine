@@ -166,24 +166,3 @@ npm run build            # Build de produção do frontend
 - Lembre-se de criar scripts de migração/exportação se quiser aproveitar os dados existentes.
 
 > 💡 Recomenda-se realizar essa migração em um branch separado e adicionar testes automatizados para garantir a compatibilidade.
-
----
-
-## 🧰 Troubleshooting
-- **Porta 3001 ocupada**: finalize processos Node (`taskkill /IM node.exe /F`) ou altere `PORT` no `.env`.
-- **Banco não atualiza**: pare o servidor, remova `server/data/db.json` e reinicie.
-- **Erro de CORS**: confirme `VITE_API_URL=http://localhost:3001/api` no `.env` do frontend.
-- **Login falha**: reinicie `npm run server:json:dev` para recriar os usuários padrão.
-
----
-
-## ✅ Próximos Passos
-- Testar o fluxo completo com usuário e gerente.
-- Personalizar artigos e roteiros do chatbot.
-- Ajustar identidade visual conforme a necessidade da sua equipe.
-
----
-
-## 📄 Licença
-Projeto privado para uso acadêmico/demonstrativo.
-
