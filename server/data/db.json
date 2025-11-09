@@ -1,0 +1,110 @@
+{
+  "users": [
+    {
+      "id": "65wxeh9kcutmhs28csk",
+      "email": "admin@helpline.com",
+      "name": "Administrador",
+      "password": "$2a$10$B.i.uIX68a5.5ZR.DxeuMOSseQUtkLLW5H5O/kJ389ReAhJ4KDWiW",
+      "department": "TI",
+      "role": "manager",
+      "createdAt": "2025-11-09T18:41:51.812Z",
+      "updatedAt": "2025-11-09T18:41:51.812Z"
+    },
+    {
+      "id": "9iisdib5kgkmhs28csn",
+      "email": "admin@helpline.com",
+      "name": "Administrador",
+      "password": "$2a$10$wvUt5zRDjaCXb3kx2k0L/uXZzuJsWy//hWOI60Q6Pfxve5HDxy73G",
+      "department": "TI",
+      "role": "manager",
+      "createdAt": "2025-11-09T18:41:51.815Z",
+      "updatedAt": "2025-11-09T18:41:51.815Z"
+    },
+    {
+      "id": "ykyhpp0cveqmhs28cx5",
+      "email": "usuario@helpline.com",
+      "name": "Usuário de Teste",
+      "password": "$2a$10$DLHAR5xN2KTTGyJMNUi9s.Q2Lw5Cyk4sGu1.RAVag5uMi2LkvGHvK",
+      "department": "Operações",
+      "role": "user",
+      "createdAt": "2025-11-09T18:41:51.977Z",
+      "updatedAt": "2025-11-09T18:41:51.977Z"
+    },
+    {
+      "id": "7yn33pw9hc8mhs28cx6",
+      "email": "usuario@helpline.com",
+      "name": "Usuário de Teste",
+      "password": "$2a$10$Ve1JVGseh9XYUQ56QLiuweRGpv0bGhVYbGNm/p1I41FgLhdC00aDm",
+      "department": "Operações",
+      "role": "user",
+      "createdAt": "2025-11-09T18:41:51.978Z",
+      "updatedAt": "2025-11-09T18:41:51.978Z"
+    },
+    {
+      "id": "b46or8bkcqwmhs5kz5a",
+      "email": "aninha@teste.com",
+      "name": "Ana Carolina",
+      "password": "$2a$10$z1QPaQd3xmbbkt6q2UwYfOjsUdDkqkkPn7HGZfPHhEV0day8HOlK6",
+      "department": "Tecnologia",
+      "role": "user",
+      "createdAt": "2025-11-09T20:15:39.502Z",
+      "updatedAt": "2025-11-09T20:15:39.502Z"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "xcq43yv7xeamhs2g3i1",
+      "protocol": "ZIVG4I0N",
+      "title": "Sistema operacional travando constantemente",
+      "description": "Chamado aberto através do chatbot.\nProblema: Sistema operacional travando constantemente\nCategoria: Software",
+      "category": "Software",
+      "priority": "medium",
+      "requesterId": "ykyhpp0cveqmhs28cx5",
+      "status": "open",
+      "requester": {
+        "id": "ykyhpp0cveqmhs28cx5",
+        "name": "Usuário de Teste",
+        "email": "usuario@helpline.com",
+        "department": "Operações"
+      },
+      "assignee": null,
+      "createdAt": "2025-11-09T18:47:53.017Z",
+      "updatedAt": "2025-11-09T18:47:53.017Z"
+    }
+  ],
+  "articles": [
+    {
+      "id": "su4pd768a3nmhs28d5h",
+      "title": "Problema com a Internet",
+      "description": "Desligue o modem da tomada por 10 segundos e religue para restaurar a conexão.",
+      "category": "Rede",
+      "icon": "Rede",
+      "authorId": "65wxeh9kcutmhs28csk",
+      "author": {
+        "id": "65wxeh9kcutmhs28csk",
+        "name": "Administrador",
+        "email": "admin@helpline.com"
+      },
+      "feedback": [],
+      "createdAt": "2025-11-09T18:41:52.277Z",
+      "updatedAt": "2025-11-09T18:41:52.278Z"
+    },
+    {
+      "id": "f8lqam869epmhs28d5q",
+      "title": "Tela Azul no Computador",
+      "description": "Reinicie o sistema e verifique se há atualizações pendentes do Windows.",
+      "category": "Hardware",
+      "icon": "Hardware",
+      "authorId": "65wxeh9kcutmhs28csk",
+      "author": {
+        "id": "65wxeh9kcutmhs28csk",
+        "name": "Administrador",
+        "email": "admin@helpline.com"
+      },
+      "feedback": [],
+      "createdAt": "2025-11-09T18:41:52.286Z",
+      "updatedAt": "2025-11-09T18:41:52.286Z"
+    }
+  ],
+  "feedback": []
+}
