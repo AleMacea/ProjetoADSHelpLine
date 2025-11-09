@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import UserSidebar from './components/UserSidebar';
+import TopBar from '@/components/TopBar';
 import { MobileMenu } from '@/components/MobileMenu';
 import problemasDetalhados from './problemas_detalhados.json';
 import { ticketsAPI } from '@/services/api';
@@ -219,41 +220,46 @@ export function ChatBot() {
     <div className="flex min-h-screen flex-col md:flex-row">
       <MobileMenu isManager={false} />
       <UserSidebar />
-      <div className="flex-1 bg-gray-50 flex flex-col md:mt-0 mt-16">
+      <div className="flex-1 flex flex-col bg-gray-50">
+        <TopBar />
         <div
-          className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4"
-          style={{ maxHeight: '600px', overflowY: 'auto' }}
+          className="flex-1 flex flex-col p-4 md:p-6 gap-4"
         >
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`max-w-xl px-4 py-2 rounded-xl whitespace-pre-wrap ${
-                msg.role === 'user'
-                  ? 'ml-auto bg-blue-500 text-white'
-                  : 'mr-auto bg-gray-200 text-black'
-              }`}
-            >
-              {msg.content}
-            </div>
-          ))}
-          {isTyping && <TypingIndicator />}
-          <div ref={chatEndRef}></div>
+          <div
+            className="flex-1 overflow-y-auto space-y-4"
+            style={{ maxHeight: '600px', overflowY: 'auto' }}
+          >
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`max-w-xl px-4 py-2 rounded-xl whitespace-pre-wrap ${
+                  msg.role === 'user'
+                    ? 'ml-auto bg-blue-500 text-white'
+                    : 'mr-auto bg-gray-200 text-black'
+                }`}
+              >
+                {msg.content}
+              </div>
+            ))}
+            {isTyping && <TypingIndicator />}
+            <div ref={chatEndRef}></div>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUserInput();
+            }}
+            className="bg-white border rounded-lg p-4 flex gap-2"
+          >
+            <Input
+              placeholder="Digite sua resposta..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="flex-1"
+            />
+            <Button type="submit">Enviar</Button>
+          </form>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleUserInput();
-          }}
-          className="p-4 border-t bg-white flex gap-2"
-        >
-          <Input
-            placeholder="Digite sua resposta..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="flex-1"
-          />
-          <Button type="submit">Enviar</Button>
-        </form>
       </div>
     </div>
   );

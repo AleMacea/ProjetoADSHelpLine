@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './components/Sidebar';
 import UserSidebar from './components/UserSidebar';
+import TopBar from '@/components/TopBar';
 import { MobileMenu } from '@/components/MobileMenu';
 import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,8 +15,9 @@ export function Home() {
     <div className="flex min-h-screen flex-col md:flex-row">
       <MobileMenu isManager={isManager} />
       {isManager ? <Sidebar /> : <UserSidebar />}
-      <div className="flex-1 p-4 md:p-6 bg-gray-50 min-h-screen md:ml-0">
-        <div className="md:mt-0 mt-16">
+      <div className="flex-1 flex flex-col bg-gray-50 min-h-screen">
+        <TopBar />
+        <div className="flex-1 p-4 md:p-6">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">Bem-vindo, {user?.name}!</h1>
           <p className="text-gray-700 mb-6">Escolha uma opção para começar:</p>
 

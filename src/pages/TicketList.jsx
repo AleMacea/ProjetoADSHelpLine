@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Sidebar from "./components/Sidebar";
 import UserSidebar from "./components/UserSidebar";
+import TopBar from "@/components/TopBar";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ticketsAPI, usersAPI } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
@@ -146,8 +147,11 @@ export function TicketList() {
       <div className="flex min-h-screen flex-col md:flex-row">
         <MobileMenu isManager={isManager} />
         {isManager ? <Sidebar /> : <UserSidebar />}
-        <div className="flex-1 p-6 bg-gray-50 min-h-screen flex items-center justify-center md:mt-0 mt-16">
+        <div className="flex-1 flex flex-col bg-gray-50 min-h-screen">
+          <TopBar />
+          <div className="flex-1 flex items-center justify-center p-6">
           <p>Carregando...</p>
+          </div>
         </div>
       </div>
     );
@@ -157,7 +161,9 @@ export function TicketList() {
     <div className="flex min-h-screen flex-col md:flex-row">
       <MobileMenu isManager={isManager} />
       {isManager ? <Sidebar /> : <UserSidebar />}
-      <div className="flex-1 p-4 md:p-6 bg-gray-50 min-h-screen">
+      <div className="flex-1 flex flex-col bg-gray-50 min-h-screen">
+        <TopBar />
+        <div className="flex-1 p-4 md:p-6">
         <h1 className="text-2xl md:text-3xl font-bold mb-4">Lista de Chamados</h1>
         
         {error && (
