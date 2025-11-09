@@ -1,17 +1,36 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login realizado:", { email, password });
-    // Aqui você pode chamar sua API de login
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        navigate("/home");
+      } else {
+        setError(result.error || "Erro ao fazer login");
+      }
+    } catch (err) {
+      setError("Erro ao fazer login. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,6 +41,11 @@ export function Login() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                {error}
+              </div>
+            )}
             <div className="space-y-2">
               <label htmlFor="email" className="block font-medium">E-mail</label>
               <Input
@@ -31,6 +55,7 @@ export function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
             <div className="space-y-2">
@@ -42,10 +67,15 @@ export function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
-            <Button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
-              Entrar
+            <Button 
+              type="submit" 
+              className="w-full bg-blue-500 text-white py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
           <p className="text-center mt-4">

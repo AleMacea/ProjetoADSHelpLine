@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import UserSidebar from './components/UserSidebar';
+import { MobileMenu } from '@/components/MobileMenu';
 import problemasDetalhados from './problemas_detalhados.json';
+import { ticketsAPI } from '@/services/api';
+import { useAuth } from '@/context/AuthContext';
 
 // Componente para exibir o indicador de digitação
 const TypingIndicator = () => {
@@ -28,6 +31,7 @@ export function ChatBot() {
   const [protocoloChamado, setProtocoloChamado] = useState(null);
   const chatEndRef = useRef(null);
   const conversationStarted = useRef(false); // Evita duplicação das mensagens iniciais
+  const { user } = useAuth();
 
   // Definição dos ícones para cada categoria
   const categoriaIcons = {
@@ -96,11 +100,29 @@ export function ChatBot() {
   };
 
   const abrirChamado = async () => {
-    const protocolo = Math.floor(100000 + Math.random() * 900000);
-    setProtocoloChamado(protocolo);
-    setMostrarBotaoAtendente(false);
-    await botReply(`Chamado aberto! Seu número de protocolo é ${protocolo}. Um atendente entrará em contato com você em breve.`, 1000);
-    await botReply("Obrigado por utilizar o assistente virtual de TI. Estou sempre por aqui se precisar! 😊", 1000);
+    try {
+      setMostrarBotaoAtendente(false);
+      
+      // Determinar categoria e título baseado no problema selecionado
+      const categoria = problemaSelecionado?.categoria || 'Geral';
+      const titulo = problemaSelecionado?.descricao || 'Problema técnico';
+      const descricao = `Chamado aberto através do chatbot.\nProblema: ${titulo}\nCategoria: ${categoria}`;
+
+      // Criar ticket através da API
+      const ticket = await ticketsAPI.create({
+        title: titulo,
+        description: descricao,
+        category: categoria,
+        priority: 'medium'
+      });
+
+      setProtocoloChamado(ticket.protocol);
+      await botReply(`Chamado aberto com sucesso! Seu número de protocolo é ${ticket.protocol}. Um atendente entrará em contato com você em breve.`, 1000);
+      await botReply("Obrigado por utilizar o assistente virtual de TI. Estou sempre por aqui se precisar! 😊", 1000);
+    } catch (error) {
+      console.error('Erro ao criar ticket:', error);
+      await botReply("Desculpe, ocorreu um erro ao abrir o chamado. Por favor, tente novamente mais tarde ou entre em contato diretamente com o suporte.", 1000);
+    }
   };
 
   const avancarEtapa = async (resposta) => {
@@ -194,11 +216,12 @@ export function ChatBot() {
   }, []);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <MobileMenu isManager={false} />
       <UserSidebar />
-      <div className="flex-1 bg-gray-50 flex flex-col">
+      <div className="flex-1 bg-gray-50 flex flex-col md:mt-0 mt-16">
         <div
-          className="flex-1 overflow-y-auto p-6 space-y-4"
+          className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4"
           style={{ maxHeight: '600px', overflowY: 'auto' }}
         >
           {messages.map((msg, index) => (

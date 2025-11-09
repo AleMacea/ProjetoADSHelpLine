@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { useAuth } from "@/context/AuthContext";
 
 export function Register() {
   const [fullName, setFullName] = useState("");
@@ -11,28 +13,51 @@ export function Register() {
   const [department, setDepartment] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (email !== confirmEmail) {
-      alert("Os e-mails não coincidem!");
+      setError("Os e-mails não coincidem!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("As senhas não coincidem!");
+      setError("As senhas não coincidem!");
       return;
     }
 
-    console.log("Usuário cadastrado:", {
-      fullName,
-      email,
-      department,
-      password,
-    });
+    if (password.length < 6) {
+      setError("A senha deve ter pelo menos 6 caracteres!");
+      return;
+    }
 
-    // Aqui você pode chamar sua API para salvar no banco de dados
+    setLoading(true);
+
+    try {
+      const result = await register({
+        name: fullName,
+        email,
+        password,
+        department,
+        role: 'user'
+      });
+
+      if (result.success) {
+        navigate("/home");
+      } else {
+        setError(result.error || "Erro ao cadastrar usuário");
+      }
+    } catch (err) {
+      setError("Erro ao cadastrar. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,6 +68,11 @@ export function Register() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleRegister} className="space-y-4">
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                {error}
+              </div>
+            )}
             <div className="space-y-2">
               <label htmlFor="fullName" className="block font-medium">
                 Nome Completo
@@ -54,6 +84,7 @@ export function Register() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -66,6 +97,7 @@ export function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -78,6 +110,7 @@ export function Register() {
                 value={confirmEmail}
                 onChange={(e) => setConfirmEmail(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -91,6 +124,7 @@ export function Register() {
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 required
+                disabled={loading}
               >
                 <option value="">Selecione um departamento</option>
                 <option value="Recursos Humanos">Recursos Humanos</option>
@@ -111,6 +145,7 @@ export function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
@@ -123,11 +158,16 @@ export function Register() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
+                disabled={loading}
               />
             </div>
 
-            <Button type="submit" className="w-full bg-green-500 text-white py-2 rounded">
-              Cadastrar
+            <Button 
+              type="submit" 
+              className="w-full bg-green-500 text-white py-2 rounded"
+              disabled={loading}
+            >
+              {loading ? "Cadastrando..." : "Cadastrar"}
             </Button>
           </form>
         </CardContent>

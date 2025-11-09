@@ -1,96 +1,384 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import Sidebar from "./components/Sidebar";
-
-
-// Simulação de dados de chamados
-const tickets = [
-    {
-        id: 1,
-        date: "24/05/2025",
-        problem: "Problema com a VPN",
-        requester: "João Silva",
-        responsible: "Carlos Souza",
-        category: "Rede",
-        status: "Em Andamento",
-        priority: "Alta",
-    },
-    {
-        id: 2,
-        date: "23/05/2025",
-        problem: "Tela azul no computador",
-        requester: "Maria Oliveira",
-        responsible: "Ana Costa",
-        category: "Hardware",
-        status: "Aberto",
-        priority: "Média",
-    },
-    {
-        id: 3,
-        date: "22/05/2025",
-        problem: "Erro ao acessar Intranet",
-        requester: "Felipe Martins",
-        responsible: "Ricardo Lima",
-        category: "VPN",
-        status: "Fechado",
-        priority: "Baixa",
-    },
-];
+import UserSidebar from "./components/UserSidebar";
+import { MobileMenu } from "@/components/MobileMenu";
+import { ticketsAPI, usersAPI } from "@/services/api";
+import { useAuth } from "@/context/AuthContext";
 
 export function TicketList() {
+  const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [managers, setManagers] = useState([]);
+  const { user, isManager } = useAuth();
+
+  // Form states
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    priority: "medium",
+    status: "open",
+    assigneeId: ""
+  });
+
+  useEffect(() => {
+    loadTickets();
+    if (isManager) {
+      loadManagers();
+    }
+  }, [isManager]);
+
+  const loadTickets = async () => {
+    try {
+      setLoading(true);
+      const data = await ticketsAPI.getAll();
+      setTickets(data);
+    } catch (err) {
+      setError("Erro ao carregar tickets");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadManagers = async () => {
+    try {
+      const data = await usersAPI.getManagers();
+      setManagers(data);
+    } catch (err) {
+      console.error("Erro ao carregar gerentes:", err);
+    }
+  };
+
+  const handleViewTicket = (ticket) => {
+    setSelectedTicket(ticket);
+    setIsDialogOpen(true);
+  };
+
+  const handleEditTicket = (ticket) => {
+    setSelectedTicket(ticket);
+    setFormData({
+      title: ticket.title,
+      description: ticket.description,
+      category: ticket.category,
+      priority: ticket.priority,
+      status: ticket.status,
+      assigneeId: ticket.assigneeId || ""
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateTicket = async () => {
+    try {
+      await ticketsAPI.update(selectedTicket.id, formData);
+      await loadTickets();
+      setIsEditDialogOpen(false);
+      setSelectedTicket(null);
+    } catch (err) {
+      setError("Erro ao atualizar ticket");
+      console.error(err);
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "open":
+        return "bg-yellow-100 text-yellow-800";
+      case "in_progress":
+        return "bg-blue-100 text-blue-800";
+      case "closed":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case "high":
+        return "bg-red-500";
+      case "medium":
+        return "bg-yellow-500";
+      case "low":
+        return "bg-green-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "open":
+        return "Aberto";
+      case "in_progress":
+        return "Em Andamento";
+      case "closed":
+        return "Fechado";
+      default:
+        return status;
+    }
+  };
+
+  const getPriorityLabel = (priority) => {
+    switch (priority) {
+      case "high":
+        return "Alta";
+      case "medium":
+        return "Média";
+      case "low":
+        return "Baixa";
+      default:
+        return priority;
+    }
+  };
+
+  if (loading) {
     return (
-        <div className="flex min-h-screen">
-            {/* Sidebar fixa à esquerda */}
-            <Sidebar />
-            <div className="p-6 bg-gray-50 min-h-screen">
-                <h1 className="text-3xl font-bold mb-4">Lista de Chamados</h1>
-                <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
-                    <table className="w-full border-collapse">
-                        <thead>
-                            <tr className="bg-gray-200 text-gray-700">
-                                <th className="p-2 text-left">ID</th>
-                                <th className="p-2 text-left">Data</th>
-                                <th className="p-2 text-left">Problema</th>
-                                <th className="p-2 text-left">Solicitante</th>
-                                <th className="p-2 text-left">Responsável</th>
-                                <th className="p-2 text-left">Categoria</th>
-                                <th className="p-2 text-left">Situação</th>
-                                <th className="p-2 text-left">Prioridade</th>
-                                <th className="p-2 text-left">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tickets.map((ticket) => (
-                                <tr key={ticket.id} className="border-t">
-                                    <td className="p-2">{ticket.id}</td>
-                                    <td className="p-2">{ticket.date}</td>
-                                    <td className="p-2">{ticket.problem}</td>
-                                    <td className="p-2">{ticket.requester}</td>
-                                    <td className="p-2">{ticket.responsible}</td>
-                                    <td className="p-2">{ticket.category}</td>
-                                    <td className="p-2">{ticket.status}</td>
-                                    <td className="p-2">
-                                        <span
-                                            className={`inline-block w-4 h-4 rounded-full ${ticket.priority === "Alta"
-                                                    ? "bg-red-500"
-                                                    : ticket.priority === "Média"
-                                                        ? "bg-yellow-500"
-                                                        : "bg-green-500"
-                                                }`}
-                                        ></span>
-                                    </td>
-                                    <td className="p-2">
-                                        <Button variant="outline" className="mr-2">Ver</Button>
-                                        <Button variant="outline">Editar</Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+      <div className="flex min-h-screen flex-col md:flex-row">
+        <MobileMenu isManager={isManager} />
+        {isManager ? <Sidebar /> : <UserSidebar />}
+        <div className="flex-1 p-6 bg-gray-50 min-h-screen flex items-center justify-center md:mt-0 mt-16">
+          <p>Carregando...</p>
         </div>
+      </div>
     );
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col md:flex-row">
+      <MobileMenu isManager={isManager} />
+      {isManager ? <Sidebar /> : <UserSidebar />}
+      <div className="flex-1 p-4 md:p-6 bg-gray-50 min-h-screen">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4">Lista de Chamados</h1>
+        
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
+
+        <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+          <div className="min-w-full overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-200 text-gray-700">
+                  <th className="p-2 text-left text-xs md:text-sm">Protocolo</th>
+                  <th className="p-2 text-left text-xs md:text-sm">Data</th>
+                  <th className="p-2 text-left text-xs md:text-sm">Título</th>
+                  {isManager && (
+                    <>
+                      <th className="p-2 text-left text-xs md:text-sm">Solicitante</th>
+                      <th className="p-2 text-left text-xs md:text-sm">Responsável</th>
+                    </>
+                  )}
+                  <th className="p-2 text-left text-xs md:text-sm">Categoria</th>
+                  <th className="p-2 text-left text-xs md:text-sm">Status</th>
+                  <th className="p-2 text-left text-xs md:text-sm">Prioridade</th>
+                  <th className="p-2 text-left text-xs md:text-sm">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tickets.length === 0 ? (
+                  <tr>
+                    <td colSpan={isManager ? 8 : 6} className="p-4 text-center text-gray-500">
+                      Nenhum ticket encontrado
+                    </td>
+                  </tr>
+                ) : (
+                  tickets.map((ticket) => (
+                    <tr key={ticket.id} className="border-t hover:bg-gray-50">
+                      <td className="p-2 text-xs md:text-sm">{ticket.protocol.substring(0, 8)}</td>
+                      <td className="p-2 text-xs md:text-sm">
+                        {new Date(ticket.createdAt).toLocaleDateString('pt-BR')}
+                      </td>
+                      <td className="p-2 text-xs md:text-sm">{ticket.title}</td>
+                      {isManager && (
+                        <>
+                          <td className="p-2 text-xs md:text-sm">{ticket.requester?.name || "N/A"}</td>
+                          <td className="p-2 text-xs md:text-sm">{ticket.assignee?.name || "Não atribuído"}</td>
+                        </>
+                      )}
+                      <td className="p-2 text-xs md:text-sm">{ticket.category}</td>
+                      <td className="p-2 text-xs md:text-sm">
+                        <span className={`px-2 py-1 rounded text-xs ${getStatusColor(ticket.status)}`}>
+                          {getStatusLabel(ticket.status)}
+                        </span>
+                      </td>
+                      <td className="p-2 text-xs md:text-sm">
+                        <div className="flex items-center gap-2">
+                          <span className={`inline-block w-3 h-3 rounded-full ${getPriorityColor(ticket.priority)}`}></span>
+                          <span>{getPriorityLabel(ticket.priority)}</span>
+                        </div>
+                      </td>
+                      <td className="p-2 text-xs md:text-sm">
+                        <div className="flex flex-col md:flex-row gap-1">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleViewTicket(ticket)}
+                            className="text-xs"
+                          >
+                            Ver
+                          </Button>
+                          {isManager && (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => handleEditTicket(ticket)}
+                              className="text-xs"
+                            >
+                              Editar
+                            </Button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Dialog para visualizar ticket */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Detalhes do Chamado</DialogTitle>
+            </DialogHeader>
+            {selectedTicket && (
+              <div className="space-y-4">
+                <div>
+                  <strong>Protocolo:</strong> {selectedTicket.protocol}
+                </div>
+                <div>
+                  <strong>Título:</strong> {selectedTicket.title}
+                </div>
+                <div>
+                  <strong>Descrição:</strong> {selectedTicket.description}
+                </div>
+                <div>
+                  <strong>Categoria:</strong> {selectedTicket.category}
+                </div>
+                <div>
+                  <strong>Status:</strong>{" "}
+                  <span className={`px-2 py-1 rounded ${getStatusColor(selectedTicket.status)}`}>
+                    {getStatusLabel(selectedTicket.status)}
+                  </span>
+                </div>
+                <div>
+                  <strong>Prioridade:</strong> {getPriorityLabel(selectedTicket.priority)}
+                </div>
+                {isManager && (
+                  <>
+                    <div>
+                      <strong>Solicitante:</strong> {selectedTicket.requester?.name} ({selectedTicket.requester?.email})
+                    </div>
+                    <div>
+                      <strong>Responsável:</strong> {selectedTicket.assignee?.name || "Não atribuído"}
+                    </div>
+                  </>
+                )}
+                <div>
+                  <strong>Data de Criação:</strong>{" "}
+                  {new Date(selectedTicket.createdAt).toLocaleString('pt-BR')}
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog para editar ticket (apenas gerente) */}
+        {isManager && (
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Editar Chamado</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <label className="block font-medium mb-1">Título</label>
+                  <Input
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block font-medium mb-1">Descrição</label>
+                  <Textarea
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows={4}
+                  />
+                </div>
+                <div>
+                  <label className="block font-medium mb-1">Categoria</label>
+                  <Input
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block font-medium mb-1">Status</label>
+                  <select
+                    className="w-full p-2 border rounded"
+                    value={formData.status}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                  >
+                    <option value="open">Aberto</option>
+                    <option value="in_progress">Em Andamento</option>
+                    <option value="closed">Fechado</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-medium mb-1">Prioridade</label>
+                  <select
+                    className="w-full p-2 border rounded"
+                    value={formData.priority}
+                    onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                  >
+                    <option value="low">Baixa</option>
+                    <option value="medium">Média</option>
+                    <option value="high">Alta</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-medium mb-1">Responsável</label>
+                  <select
+                    className="w-full p-2 border rounded"
+                    value={formData.assigneeId}
+                    onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
+                  >
+                    <option value="">Não atribuído</option>
+                    {managers.map((manager) => (
+                      <option key={manager.id} value={manager.id}>
+                        {manager.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button onClick={handleUpdateTicket}>Salvar</Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default TicketList;

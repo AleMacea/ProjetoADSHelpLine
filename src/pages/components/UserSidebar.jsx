@@ -1,43 +1,61 @@
-import { MessageSquare, FileText, LogOut } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { MessageSquare, FileText, LogOut, Home, Ticket } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 const navItems = [
+  { name: "Início", icon: <Home size={18} />, path: "/home" },
   { name: "Chat", icon: <MessageSquare size={18} />, path: "/chat" },
   { name: "Artigos Úteis", icon: <FileText size={18} />, path: "/artigos" },
+  { name: "Meus Chamados", icon: <Ticket size={18} />, path: "/tickets" },
 ];
 
 export default function UserSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
-    <aside className="sticky top-0 h-screen w-64 bg-[rgba(33,0,93,255)] text-white shadow-md flex flex-col">
+    <aside className="hidden md:flex sticky top-0 h-screen w-64 bg-[rgba(33,0,93,255)] text-white shadow-md flex-col z-30">
       {/* Logo do HelpLine */}
-      <div className="flex items-center justify-center p-3">
+      <div className="flex items-center justify-center p-3 border-b border-blue-800">
         <img src="/images/logo.png" alt="HelpLine Logo" className="w-24 h-auto" />
       </div>
 
+      {/* Informações do usuário */}
+      {user && (
+        <div className="px-4 py-3 border-b border-blue-800">
+          <p className="text-sm font-semibold">{user.name}</p>
+          <p className="text-xs text-blue-200">Usuário</p>
+        </div>
+      )}
+
       {/* Navegação */}
-      <div className="p-4 flex-grow">
-        <nav className="space-y-2 mt-2">
+      <div className="p-4 flex-grow overflow-y-auto">
+        <nav className="space-y-2">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
                 key={item.name}
                 to={item.path}
-                className="block" // Garante que o link ocupe toda a linha
+                className="block"
               >
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start gap-2 text-white hover:bg-blue-800",
+                    "w-full justify-start gap-2 text-white hover:bg-blue-800 transition-colors",
                     isActive && "bg-blue-700"
                   )}
                 >
                   {item.icon}
-                  {item.name}
+                  <span>{item.name}</span>
                 </Button>
               </Link>
             );
@@ -46,13 +64,14 @@ export default function UserSidebar() {
       </div>
 
       {/* Botão de sair */}
-      <div className="p-4">
+      <div className="p-4 border-t border-blue-800">
         <Button
           variant="ghost"
-          className="w-full justify-start gap-2 text-white hover:bg-red-600"
+          className="w-full justify-start gap-2 text-white hover:bg-red-600 transition-colors"
+          onClick={handleLogout}
         >
           <LogOut size={18} />
-          Sair
+          <span>Sair</span>
         </Button>
       </div>
     </aside>

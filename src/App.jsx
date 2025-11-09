@@ -2,6 +2,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 
 import { ThemeProvider } from './components/theme-provider';
+import { AuthProvider } from './context/AuthContext';
 import { router } from './router';
 
 export default function App() {
@@ -9,7 +10,9 @@ export default function App() {
     <ThemeProvider defaultTheme="light" storageKey="maestro">
       <HelmetProvider>
         <Helmet title="CM Manutenção Industrial &#8482;" />
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </HelmetProvider>
     </ThemeProvider>
   );

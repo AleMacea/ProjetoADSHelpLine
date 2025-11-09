@@ -4,16 +4,52 @@ import { Home } from './pages/Home';
 import { ChatBot } from './pages/ChatBot';
 import { KnowledgeBase } from './pages/KnowledgeBase';
 import { Register } from './pages/Register';
-import TicketList from './pages/Ticketlist';
+import TicketList from './pages/TicketList';
 import UserHelp from './pages/UserHelp';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   { path: "/", element: <Login /> },
-  { path: "/home", element: <Home /> },
-  { path: "/chat", element: <ChatBot /> },
-  { path: "/knowledge-base", element: <KnowledgeBase /> },
   { path: "/register", element: <Register /> },
-  { path: "/tickets", element: <TicketList /> },
-  {path: "/artigos", element: <UserHelp />},
+  { 
+    path: "/home", 
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    )
+  },
+  { 
+    path: "/chat", 
+    element: (
+      <ProtectedRoute>
+        <ChatBot />
+      </ProtectedRoute>
+    )
+  },
+  { 
+    path: "/knowledge-base", 
+    element: (
+      <ProtectedRoute requireManager={true}>
+        <KnowledgeBase />
+      </ProtectedRoute>
+    )
+  },
+  { 
+    path: "/tickets", 
+    element: (
+      <ProtectedRoute>
+        <TicketList />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/artigos", 
+    element: (
+      <ProtectedRoute>
+        <UserHelp />
+      </ProtectedRoute>
+    )
+  },
   { path: "*", element: <Login /> },
 ]);
