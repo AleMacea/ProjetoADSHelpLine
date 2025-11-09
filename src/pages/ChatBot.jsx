@@ -222,43 +222,48 @@ export function ChatBot() {
       <UserSidebar />
       <div className="flex-1 flex flex-col bg-gray-50">
         <TopBar />
-        <div
-          className="flex-1 flex flex-col p-4 md:p-6 gap-4"
-        >
-          <div
-            className="flex-1 overflow-y-auto space-y-4"
-            style={{ maxHeight: '600px', overflowY: 'auto' }}
-          >
-            {messages.map((msg, index) => (
+        <div className="flex-1 p-4 md:p-6">
+          <div className="bg-white border border-[#D9D9D9] rounded-lg shadow-sm">
+            <div className="bg-[#D9D9D9] text-slate-900 px-4 md:px-6 py-3 rounded-t-lg">
+              <h1 className="text-2xl font-bold">Chat Bot de Suporte</h1>
+            </div>
+            <div className="p-4 md:p-6 flex flex-col gap-4">
               <div
-                key={index}
-                className={`max-w-xl px-4 py-2 rounded-xl whitespace-pre-wrap ${
-                  msg.role === 'user'
-                    ? 'ml-auto bg-blue-500 text-white'
-                    : 'mr-auto bg-gray-200 text-black'
-                }`}
+                className="flex-1 overflow-y-auto space-y-4"
+                style={{ maxHeight: '500px', overflowY: 'auto' }}
               >
-                {msg.content}
+                {messages.map((msg, index) => (
+                  <div
+                    key={index}
+                    className={`max-w-xl px-4 py-2 rounded-xl whitespace-pre-wrap ${
+                      msg.role === 'user'
+                        ? 'ml-auto bg-blue-500 text-white'
+                        : 'mr-auto bg-gray-200 text-black'
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                ))}
+                {isTyping && <TypingIndicator />}
+                <div ref={chatEndRef}></div>
               </div>
-            ))}
-            {isTyping && <TypingIndicator />}
-            <div ref={chatEndRef}></div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleUserInput();
+                }}
+                className="bg-white border border-[#D9D9D9] rounded-lg p-4 flex gap-2"
+              >
+                <Input
+                  placeholder="Digite sua resposta..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  className="flex-1"
+                />
+                <Button type="submit">Enviar</Button>
+              </form>
+            </div>
           </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleUserInput();
-            }}
-            className="bg-white border rounded-lg p-4 flex gap-2"
-          >
-            <Input
-              placeholder="Digite sua resposta..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1"
-            />
-            <Button type="submit">Enviar</Button>
-          </form>
         </div>
       </div>
     </div>

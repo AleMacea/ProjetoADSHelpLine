@@ -10,6 +10,7 @@ import TopBar from "@/components/TopBar";
 import { MobileMenu } from "@/components/MobileMenu";
 import { ticketsAPI, usersAPI } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
+import { Eye, Pencil } from "lucide-react";
 
 export function TicketList() {
   const [tickets, setTickets] = useState([]);
@@ -164,290 +165,298 @@ export function TicketList() {
       <div className="flex-1 flex flex-col bg-gray-50 min-h-screen">
         <TopBar />
         <div className="flex-1 p-4 md:p-6">
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">Lista de Chamados</h1>
-
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-              {error}
+          <div className="bg-white border border-[#D9D9D9] rounded-lg shadow-sm">
+            <div className="bg-[#D9D9D9] text-slate-900 px-4 md:px-6 py-3 rounded-t-lg">
+              <h1 className="text-2xl md:text-3xl font-bold">Lista de Chamados</h1>
             </div>
-          )}
-
-          <div className="space-y-4 md:hidden">
-            {tickets.length === 0 ? (
-              <p className="text-center text-gray-500">Nenhum ticket encontrado</p>
-            ) : (
-              tickets.map((ticket) => (
-                <div key={ticket.id} className="bg-white rounded-lg shadow border p-4 space-y-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="text-xs text-gray-500">Protocolo</p>
-                      <p className="text-sm font-semibold">{ticket.protocol.substring(0, 8)}</p>
-                    </div>
-                    <span className={`px-2 py-1 rounded text-xs ${getStatusColor(ticket.status)}`}>
-                      {getStatusLabel(ticket.status)}
-                    </span>
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-gray-500">Título</p>
-                    <p className="text-sm font-medium">{ticket.title}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
-                    <div>
-                      <p className="text-gray-500">Categoria</p>
-                      <p>{ticket.category}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Prioridade</p>
-                      <div className="flex items-center gap-2">
-                        <span className={`inline-block w-3 h-3 rounded-full ${getPriorityColor(ticket.priority)}`}></span>
-                        <span>{getPriorityLabel(ticket.priority)}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Data</p>
-                      <p>{new Date(ticket.createdAt).toLocaleDateString('pt-BR')}</p>
-                    </div>
-                    {isManager && (
-                      <div>
-                        <p className="text-gray-500">Solicitante</p>
-                        <p>{ticket.requester?.name || 'N/A'}</p>
-                      </div>
-                    )}
-                    {isManager && (
-                      <div>
-                        <p className="text-gray-500">Responsável</p>
-                        <p>{ticket.assignee?.name || 'Não atribuído'}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex gap-2 pt-2">
-                    <Button variant="outline" size="sm" onClick={() => handleViewTicket(ticket)} className="flex-1 text-xs">
-                      Ver
-                    </Button>
-                    {isManager && (
-                      <Button variant="outline" size="sm" onClick={() => handleEditTicket(ticket)} className="flex-1 text-xs">
-                        Editar
-                      </Button>
-                    )}
-                  </div>
+            <div className="p-4 md:p-6 space-y-4">
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                  {error}
                 </div>
-              ))
-            )}
-          </div>
+              )}
 
-          <div className="overflow-x-auto bg-white shadow-md rounded-lg hidden md:block">
-            <div className="min-w-full overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="bg-gray-200 text-gray-700">
-                    <th className="p-2 text-left text-xs md:text-sm">Protocolo</th>
-                    <th className="p-2 text-left text-xs md:text-sm">Data</th>
-                    <th className="p-2 text-left text-xs md:text-sm">Título</th>
-                    {isManager && (
-                      <>
-                        <th className="p-2 text-left text-xs md:text-sm">Solicitante</th>
-                        <th className="p-2 text-left text-xs md:text-sm">Responsável</th>
-                      </>
-                    )}
-                    <th className="p-2 text-left text-xs md:text-sm">Categoria</th>
-                    <th className="p-2 text-left text-xs md:text-sm">Status</th>
-                    <th className="p-2 text-left text-xs md:text-sm">Prioridade</th>
-                    <th className="p-2 text-left text-xs md:text-sm">Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tickets.length === 0 ? (
-                    <tr>
-                      <td colSpan={isManager ? 8 : 6} className="p-4 text-center text-gray-500">
-                        Nenhum ticket encontrado
-                      </td>
-                    </tr>
-                  ) : (
-                    tickets.map((ticket) => (
-                      <tr key={ticket.id} className="border-t hover:bg-gray-50">
-                        <td className="p-2 text-xs md:text-sm">{ticket.protocol.substring(0, 8)}</td>
-                        <td className="p-2 text-xs md:text-sm">
-                          {new Date(ticket.createdAt).toLocaleDateString('pt-BR')}
-                        </td>
-                        <td className="p-2 text-xs md:text-sm">{ticket.title}</td>
-                        {isManager && (
-                          <>
-                            <td className="p-2 text-xs md:text-sm">{ticket.requester?.name || "N/A"}</td>
-                            <td className="p-2 text-xs md:text-sm">{ticket.assignee?.name || "Não atribuído"}</td>
-                          </>
-                        )}
-                        <td className="p-2 text-xs md:text-sm">{ticket.category}</td>
-                        <td className="p-2 text-xs md:text-sm">
-                          <span className={`px-2 py-1 rounded text-xs ${getStatusColor(ticket.status)}`}>
-                            {getStatusLabel(ticket.status)}
-                          </span>
-                        </td>
-                        <td className="p-2 text-xs md:text-sm">
+              <div className="space-y-4 md:hidden">
+                {tickets.length === 0 ? (
+                  <p className="text-center text-gray-500">Nenhum ticket encontrado</p>
+                ) : (
+                  tickets.map((ticket) => (
+                    <div key={ticket.id} className="bg-white rounded-lg shadow border p-4 space-y-2">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="text-xs text-gray-500">Protocolo</p>
+                          <p className="text-sm font-semibold">{ticket.protocol.substring(0, 8)}</p>
+                        </div>
+                        <span className={`px-2 py-1 rounded text-xs ${getStatusColor(ticket.status)}`}>
+                          {getStatusLabel(ticket.status)}
+                        </span>
+                      </div>
+
+                      <div>
+                        <p className="text-xs text-gray-500">Título</p>
+                        <p className="text-sm font-medium">{ticket.title}</p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <div>
+                          <p className="text-gray-500">Categoria</p>
+                          <p>{ticket.category}</p>
+                        </div>
+                        <div>
+                          <p className="text-gray-500">Prioridade</p>
                           <div className="flex items-center gap-2">
                             <span className={`inline-block w-3 h-3 rounded-full ${getPriorityColor(ticket.priority)}`}></span>
                             <span>{getPriorityLabel(ticket.priority)}</span>
                           </div>
-                        </td>
-                        <td className="p-2 text-xs md:text-sm">
-                          <div className="flex flex-col md:flex-row gap-1">
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => handleViewTicket(ticket)}
-                              className="text-xs"
-                            >
-                              Ver
-                            </Button>
-                            {isManager && (
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                onClick={() => handleEditTicket(ticket)}
-                                className="text-xs"
-                              >
-                                Editar
-                              </Button>
-                            )}
+                        </div>
+                        <div>
+                          <p className="text-gray-500">Data</p>
+                          <p>{new Date(ticket.createdAt).toLocaleDateString('pt-BR')}</p>
+                        </div>
+                        {isManager && (
+                          <div>
+                            <p className="text-gray-500">Solicitante</p>
+                            <p>{ticket.requester?.name || 'N/A'}</p>
                           </div>
-                        </td>
+                        )}
+                        {isManager && (
+                          <div>
+                            <p className="text-gray-500">Responsável</p>
+                            <p>{ticket.assignee?.name || 'Não atribuído'}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex gap-2 pt-2">
+                        <Button variant="outline" size="sm" onClick={() => handleViewTicket(ticket)} className="flex-1 flex items-center justify-center gap-2 text-xs">
+                          <Eye size={16} />
+                          <span className="sr-only">Ver</span>
+                        </Button>
+                        {isManager && (
+                          <Button variant="outline" size="sm" onClick={() => handleEditTicket(ticket)} className="flex-1 flex items-center justify-center gap-2 text-xs">
+                            <Pencil size={16} />
+                            <span className="sr-only">Editar</span>
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <div className="overflow-x-auto bg-white shadow-md rounded-lg hidden md:block">
+                <div className="min-w-full overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-200 text-gray-700">
+                        <th className="p-2 text-left text-xs md:text-sm">Protocolo</th>
+                        <th className="p-2 text-left text-xs md:text-sm">Data</th>
+                        <th className="p-2 text-left text-xs md:text-sm">Título</th>
+                        {isManager && (
+                          <>
+                            <th className="p-2 text-left text-xs md:text-sm">Solicitante</th>
+                            <th className="p-2 text-left text-xs md:text-sm">Responsável</th>
+                          </>
+                        )}
+                        <th className="p-2 text-left text-xs md:text-sm">Categoria</th>
+                        <th className="p-2 text-left text-xs md:text-sm">Status</th>
+                        <th className="p-2 text-left text-xs md:text-sm">Prioridade</th>
+                        <th className="p-2 text-left text-xs md:text-sm">Ações</th>
                       </tr>
-                    ))
+                    </thead>
+                    <tbody>
+                      {tickets.length === 0 ? (
+                        <tr>
+                          <td colSpan={isManager ? 8 : 6} className="p-4 text-center text-gray-500">
+                            Nenhum ticket encontrado
+                          </td>
+                        </tr>
+                      ) : (
+                        tickets.map((ticket) => (
+                          <tr key={ticket.id} className="border-t hover:bg-gray-50">
+                            <td className="p-2 text-xs md:text-sm">{ticket.protocol.substring(0, 8)}</td>
+                            <td className="p-2 text-xs md:text-sm">
+                              {new Date(ticket.createdAt).toLocaleDateString('pt-BR')}
+                            </td>
+                            <td className="p-2 text-xs md:text-sm">{ticket.title}</td>
+                            {isManager && (
+                              <>
+                                <td className="p-2 text-xs md:text-sm">{ticket.requester?.name || "N/A"}</td>
+                                <td className="p-2 text-xs md:text-sm">{ticket.assignee?.name || "Não atribuído"}</td>
+                              </>
+                            )}
+                            <td className="p-2 text-xs md:text-sm">{ticket.category}</td>
+                            <td className="p-2 text-xs md:text-sm">
+                              <span className={`px-2 py-1 rounded text-xs ${getStatusColor(ticket.status)}`}>
+                                {getStatusLabel(ticket.status)}
+                              </span>
+                            </td>
+                            <td className="p-2 text-xs md:text-sm">
+                              <div className="flex items-center gap-2">
+                                <span className={`inline-block w-3 h-3 rounded-full ${getPriorityColor(ticket.priority)}`}></span>
+                              </div>
+                            </td>
+                            <td className="p-2 text-xs md:text-sm">
+                              <div className="flex flex-col md:flex-row gap-1">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm"
+                                  onClick={() => handleViewTicket(ticket)}
+                                  className="text-xs flex items-center justify-center gap-2"
+                                >
+                                  <Eye size={16} />
+                                  <span className="sr-only">Ver</span>
+                                </Button>
+                                {isManager && (
+                                  <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    onClick={() => handleEditTicket(ticket)}
+                                    className="text-xs flex items-center justify-center gap-2"
+                                  >
+                                    <Pencil size={16} />
+                                    <span className="sr-only">Editar</span>
+                                  </Button>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Dialog para visualizar ticket */}
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Detalhes do Chamado</DialogTitle>
+                  </DialogHeader>
+                  {selectedTicket && (
+                    <div className="space-y-4">
+                      <div>
+                        <strong>Protocolo:</strong> {selectedTicket.protocol}
+                      </div>
+                      <div>
+                        <strong>Título:</strong> {selectedTicket.title}
+                      </div>
+                      <div>
+                        <strong>Descrição:</strong> {selectedTicket.description}
+                      </div>
+                      <div>
+                        <strong>Categoria:</strong> {selectedTicket.category}
+                      </div>
+                      <div>
+                        <strong>Status:</strong>{" "}
+                        <span className={`px-2 py-1 rounded ${getStatusColor(selectedTicket.status)}`}>
+                          {getStatusLabel(selectedTicket.status)}
+                        </span>
+                      </div>
+                      <div>
+                        <strong>Prioridade:</strong> {getPriorityLabel(selectedTicket.priority)}
+                      </div>
+                      {isManager && (
+                        <>
+                          <div>
+                            <strong>Solicitante:</strong> {selectedTicket.requester?.name} ({selectedTicket.requester?.email})
+                          </div>
+                          <div>
+                            <strong>Responsável:</strong> {selectedTicket.assignee?.name || "Não atribuído"}
+                          </div>
+                        </>
+                      )}
+                      <div>
+                        <strong>Data de Criação:</strong>{" "}
+                        {new Date(selectedTicket.createdAt).toLocaleString('pt-BR')}
+                      </div>
+                    </div>
                   )}
-                </tbody>
-              </table>
+                </DialogContent>
+              </Dialog>
+
+              {/* Dialog para editar ticket (apenas gerente) */}
+              {isManager && (
+                <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Editar Chamado</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block font-medium mb-1">Título</label>
+                        <Input
+                          value={formData.title}
+                          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-medium mb-1">Descrição</label>
+                        <Textarea
+                          value={formData.description}
+                          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                          rows={4}
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-medium mb-1">Categoria</label>
+                        <Input
+                          value={formData.category}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-medium mb-1">Status</label>
+                        <select
+                          className="w-full p-2 border rounded"
+                          value={formData.status}
+                          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                        >
+                          <option value="open">Aberto</option>
+                          <option value="in_progress">Em Andamento</option>
+                          <option value="closed">Fechado</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block font-medium mb-1">Prioridade</label>
+                        <select
+                          className="w-full p-2 border rounded"
+                          value={formData.priority}
+                          onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                        >
+                          <option value="low">Baixa</option>
+                          <option value="medium">Média</option>
+                          <option value="high">Alta</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block font-medium mb-1">Responsável</label>
+                        <select
+                          className="w-full p-2 border rounded"
+                          value={formData.assigneeId}
+                          onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
+                        >
+                          <option value="">Não atribuído</option>
+                          {managers.map((manager) => (
+                            <option key={manager.id} value={manager.id}>
+                              {manager.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex gap-2 justify-end">
+                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                          Cancelar
+                        </Button>
+                        <Button onClick={handleUpdateTicket}>Salvar</Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
             </div>
           </div>
-
-          {/* Dialog para visualizar ticket */}
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>Detalhes do Chamado</DialogTitle>
-              </DialogHeader>
-              {selectedTicket && (
-                <div className="space-y-4">
-                  <div>
-                    <strong>Protocolo:</strong> {selectedTicket.protocol}
-                  </div>
-                  <div>
-                    <strong>Título:</strong> {selectedTicket.title}
-                  </div>
-                  <div>
-                    <strong>Descrição:</strong> {selectedTicket.description}
-                  </div>
-                  <div>
-                    <strong>Categoria:</strong> {selectedTicket.category}
-                  </div>
-                  <div>
-                    <strong>Status:</strong>{" "}
-                    <span className={`px-2 py-1 rounded ${getStatusColor(selectedTicket.status)}`}>
-                      {getStatusLabel(selectedTicket.status)}
-                    </span>
-                  </div>
-                  <div>
-                    <strong>Prioridade:</strong> {getPriorityLabel(selectedTicket.priority)}
-                  </div>
-                  {isManager && (
-                    <>
-                      <div>
-                        <strong>Solicitante:</strong> {selectedTicket.requester?.name} ({selectedTicket.requester?.email})
-                      </div>
-                      <div>
-                        <strong>Responsável:</strong> {selectedTicket.assignee?.name || "Não atribuído"}
-                      </div>
-                    </>
-                  )}
-                  <div>
-                    <strong>Data de Criação:</strong>{" "}
-                    {new Date(selectedTicket.createdAt).toLocaleString('pt-BR')}
-                  </div>
-                </div>
-              )}
-            </DialogContent>
-          </Dialog>
-
-          {/* Dialog para editar ticket (apenas gerente) */}
-          {isManager && (
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Editar Chamado</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block font-medium mb-1">Título</label>
-                    <Input
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium mb-1">Descrição</label>
-                    <Textarea
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      rows={4}
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium mb-1">Categoria</label>
-                    <Input
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium mb-1">Status</label>
-                    <select
-                      className="w-full p-2 border rounded"
-                      value={formData.status}
-                      onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    >
-                      <option value="open">Aberto</option>
-                      <option value="in_progress">Em Andamento</option>
-                      <option value="closed">Fechado</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block font-medium mb-1">Prioridade</label>
-                    <select
-                      className="w-full p-2 border rounded"
-                      value={formData.priority}
-                      onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                    >
-                      <option value="low">Baixa</option>
-                      <option value="medium">Média</option>
-                      <option value="high">Alta</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block font-medium mb-1">Responsável</label>
-                    <select
-                      className="w-full p-2 border rounded"
-                      value={formData.assigneeId}
-                      onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
-                    >
-                      <option value="">Não atribuído</option>
-                      {managers.map((manager) => (
-                        <option key={manager.id} value={manager.id}>
-                          {manager.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="flex gap-2 justify-end">
-                    <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                      Cancelar
-                    </Button>
-                    <Button onClick={handleUpdateTicket}>Salvar</Button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-          )}
         </div>
       </div>
     </div>
