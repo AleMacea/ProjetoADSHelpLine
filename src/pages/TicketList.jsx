@@ -330,46 +330,61 @@ export function TicketList() {
 
               {/* Dialog para visualizar ticket */}
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Detalhes do Chamado</DialogTitle>
-                  </DialogHeader>
+                <DialogContent className="p-0 max-w-3xl overflow-hidden">
                   {selectedTicket && (
-                    <div className="space-y-4">
-                      <div>
-                        <strong>Protocolo:</strong> {selectedTicket.protocol}
+                    <div className="bg-white">
+                      <div className="bg-[#D9D9D9] text-slate-900 px-6 py-4">
+                        <h2 className="text-xl font-semibold">
+                          {selectedTicket.title || `Chamado ${selectedTicket.protocol.substring(0, 8)}`}
+                        </h2>
+                        <p className="text-sm text-slate-700">Protocolo {selectedTicket.protocol}</p>
                       </div>
-                      <div>
-                        <strong>Título:</strong> {selectedTicket.title}
-                      </div>
-                      <div>
-                        <strong>Descrição:</strong> {selectedTicket.description}
-                      </div>
-                      <div>
-                        <strong>Categoria:</strong> {selectedTicket.category}
-                      </div>
-                      <div>
-                        <strong>Status:</strong>{" "}
-                        <span className={`px-2 py-1 rounded ${getStatusColor(selectedTicket.status)}`}>
-                          {getStatusLabel(selectedTicket.status)}
-                        </span>
-                      </div>
-                      <div>
-                        <strong>Prioridade:</strong> {getPriorityLabel(selectedTicket.priority)}
-                      </div>
-                      {isManager && (
-                        <>
-                          <div>
-                            <strong>Solicitante:</strong> {selectedTicket.requester?.name} ({selectedTicket.requester?.email})
+                      <div className="p-6 space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Solicitante</label>
+                              <Input value={selectedTicket.requester?.name || 'Não informado'} readOnly disabled className="bg-slate-50" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Responsável</label>
+                              <Input value={selectedTicket.assignee?.name || 'Não atribuído'} readOnly disabled className="bg-slate-50" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Descrição</label>
+                              <Textarea value={selectedTicket.description} readOnly disabled className="bg-slate-50 min-h-[140px]" />
+                            </div>
                           </div>
-                          <div>
-                            <strong>Responsável:</strong> {selectedTicket.assignee?.name || "Não atribuído"}
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Data de cadastro</label>
+                              <Input value={new Date(selectedTicket.createdAt).toLocaleDateString('pt-BR')} readOnly disabled className="bg-slate-50" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Categoria</label>
+                              <Input value={selectedTicket.category} readOnly disabled className="bg-slate-50" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Tipo</label>
+                              <Input value={selectedTicket.title} readOnly disabled className="bg-slate-50" />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-slate-700">Situação</label>
+                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(selectedTicket.status)}`}>
+                                  {getStatusLabel(selectedTicket.status)}
+                                </span>
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-slate-700">Prioridade</label>
+                                <span className="inline-flex items-center gap-2 text-sm">
+                                  <span className={`inline-block w-2.5 h-2.5 rounded-full ${getPriorityColor(selectedTicket.priority)}`}></span>
+                                  {getPriorityLabel(selectedTicket.priority)}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </>
-                      )}
-                      <div>
-                        <strong>Data de Criação:</strong>{" "}
-                        {new Date(selectedTicket.createdAt).toLocaleString('pt-BR')}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -379,77 +394,90 @@ export function TicketList() {
               {/* Dialog para editar ticket (apenas gerente) */}
               {isManager && (
                 <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                      <DialogTitle>Editar Chamado</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block font-medium mb-1">Título</label>
-                        <Input
-                          value={formData.title}
-                          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        />
+                  <DialogContent className="p-0 max-w-3xl overflow-hidden">
+                    <div className="bg-white">
+                      <div className="bg-[#D9D9D9] text-slate-900 px-6 py-4">
+                        <h2 className="text-xl font-semibold">
+                          Editar Chamado - {selectedTicket?.title || ''}
+                        </h2>
+                        {selectedTicket && (
+                          <p className="text-sm text-slate-700">Protocolo {selectedTicket.protocol}</p>
+                        )}
                       </div>
-                      <div>
-                        <label className="block font-medium mb-1">Descrição</label>
-                        <Textarea
-                          value={formData.description}
-                          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                          rows={4}
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-medium mb-1">Categoria</label>
-                        <Input
-                          value={formData.category}
-                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-medium mb-1">Status</label>
-                        <select
-                          className="w-full p-2 border rounded"
-                          value={formData.status}
-                          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                        >
-                          <option value="open">Aberto</option>
-                          <option value="in_progress">Em Andamento</option>
-                          <option value="closed">Fechado</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block font-medium mb-1">Prioridade</label>
-                        <select
-                          className="w-full p-2 border rounded"
-                          value={formData.priority}
-                          onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                        >
-                          <option value="low">Baixa</option>
-                          <option value="medium">Média</option>
-                          <option value="high">Alta</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block font-medium mb-1">Responsável</label>
-                        <select
-                          className="w-full p-2 border rounded"
-                          value={formData.assigneeId}
-                          onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
-                        >
-                          <option value="">Não atribuído</option>
-                          {managers.map((manager) => (
-                            <option key={manager.id} value={manager.id}>
-                              {manager.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="flex gap-2 justify-end">
-                        <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                          Cancelar
-                        </Button>
-                        <Button onClick={handleUpdateTicket}>Salvar</Button>
+                      <div className="p-6 space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Título</label>
+                              <Input
+                                value={formData.title}
+                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Categoria</label>
+                              <Input
+                                value={formData.category}
+                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Descrição</label>
+                              <Textarea
+                                value={formData.description}
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                rows={6}
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Status</label>
+                              <select
+                                className="w-full p-3 border rounded"
+                                value={formData.status}
+                                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                              >
+                                <option value="open">Aberto</option>
+                                <option value="in_progress">Em Andamento</option>
+                                <option value="closed">Fechado</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Prioridade</label>
+                              <select
+                                className="w-full p-3 border rounded"
+                                value={formData.priority}
+                                onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+                              >
+                                <option value="low">Baixa</option>
+                                <option value="medium">Média</option>
+                                <option value="high">Alta</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-slate-700">Responsável</label>
+                              <select
+                                className="w-full p-3 border rounded"
+                                value={formData.assigneeId}
+                                onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
+                              >
+                                <option value="">Não atribuído</option>
+                                {managers.map((manager) => (
+                                  <option key={manager.id} value={manager.id}>
+                                    {manager.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                          <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                            Cancelar
+                          </Button>
+                          <Button onClick={handleUpdateTicket}>Salvar</Button>
+                        </div>
                       </div>
                     </div>
                   </DialogContent>
